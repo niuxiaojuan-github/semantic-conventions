@@ -5,6 +5,7 @@ groups:
     brief: >
       This is an example semconv.
     attributes:
+      - ref: service.name
       - id: attr
         type: int
         brief: >
@@ -12,4 +13,3 @@ groups:
         note: >
           It's a note
         examples: 134217728
-      - ref: cloud.resource_id
