@@ -1,0 +1,44 @@
+groups:
+  - id: database
+    type: resource
+    brief: >
+      A database.
+    attributes:
+      - ref: server.address
+        requirement_level: required
+        brief: >
+          Name of the database host.
+      - ref: server.port
+        requirement_level: required
+        brief: >
+          Database listen port.
+      - id: db.version
+        type: string
+        requirement_level: required
+        brief: >
+          The version of the database.
+        examples: ["v11.5", "v8"]
+      - ref: service.name
+        requirement_level: required
+      - ref: service.instance.id
+        requirement_level: 
+          conditionally_required: If applicable.
+        brief: >
+          This attribute is used to describe the entity ID of the current object 
+          and consists of server.address, server.port, and db.name.
+        examples: ["db.testdb.com:5236@DAMENG"]
+      - id: db.entity.parent.id
+        type: string
+        requirement_level:
+          conditionally_required: If applicable.
+        brief: >
+          This attribute is used to describe the parent entity ID 
+          of the current object and consists of server.address, 
+          server.port and db.name or instance.name together.
+        examples: ["db.testdb.com:5236@db2inst1"]
+      - id: db.entity.type
+        type: string
+        requirement_level: required
+        brief: >
+          This attribute is used to describe the type of the current object.
+        examples: ["DATABASE", "INSTANCE"]
