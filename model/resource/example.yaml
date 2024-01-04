@@ -1,0 +1,15 @@
+groups:
+  - id: example
+    prefix: test
+    type: resource
+    brief: >
+      This is an example semconv.
+    attributes:
+      - id: attr
+        type: int
+        brief: >
+          A brief description.
+        note: >
+          It's a note
+        examples: 134217728
+      - ref: cloud.resource_id
