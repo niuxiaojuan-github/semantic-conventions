@@ -8,10 +8,16 @@ groups:
         requirement_level: required
         brief: >
           Name of the database host.
+        examples: ["db.testdb.com"]
+        note: >
+          The hostname or IP address of the database server.
       - ref: server.port
         requirement_level: required
         brief: >
           Database listen port.
+        examples: ["50000", "5236"]
+        note: >
+          Listen port of the database server.
       - id: db.version
         type: string
         requirement_level: required
@@ -20,6 +26,9 @@ groups:
         examples: ["v11.5", "v8"]
       - ref: service.name
         requirement_level: required
+        brief: >
+          This attribute is used to describe the entity name.
+        examples: ["damengdb@DAMENG"]
       - ref: service.instance.id
         requirement_level: 
           conditionally_required: If applicable.
@@ -42,3 +51,16 @@ groups:
         brief: >
           This attribute is used to describe the type of the current object.
         examples: ["DATABASE", "INSTANCE"]
+      - ref: db.name
+        requirement_level:
+          conditionally_required: If applicable.
+        brief: >
+          This attribute is used to report the name of the database 
+          being accessed. For commands that switch the database, this should be 
+          set to the target database.
+        examples: ["BLUDB", "DAMENG"]
+      - ref: db.system
+        requirement_level: required
+        brief: >
+          An identifier for the database management system (DBMS) product being used.
+        examples: ["db2", "damengdb"]
