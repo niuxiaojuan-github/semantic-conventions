@@ -10,7 +10,7 @@
 | Attribute  | Type | Description  | Examples  | Requirement Level |
 |---|---|---|---|---|
 | `db.entity.parent.id` | string | This attribute is used to describe the parent entity ID  of the current object and consists of server.address,  server.port and db.name or instance.name together. | `db.testdb.com:5236@db2inst1` | Conditionally Required: If applicable. |
-| `db.entity.type` | string | This attribute is used to describe the type of the current object. | `DATABASE`; `INSTANCE` | Required |
+| `db.entity.type` | string | This attribute is used to describe the type of the current object. | `DATABASE`; `INSTANCE` | Conditionally Required: If applicable. |
 | [`db.name`](../attributes-registry/db.md) | string | This attribute is used to report the name of the database  being accessed. For commands that switch the database, this should be  set to the target database. [1] | `BLUDB`; `DAMENG` | Conditionally Required: If applicable. |
 | [`db.system`](../attributes-registry/db.md) | string | An identifier for the database management system (DBMS) product being used. | `db2`; `damengdb` | Required |
 | `db.version` | string | The version of the database. | `v11.5`; `v8` | Required |

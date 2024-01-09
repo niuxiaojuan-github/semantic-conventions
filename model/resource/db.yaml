@@ -47,7 +47,8 @@ groups:
         examples: ["db.testdb.com:5236@db2inst1"]
       - id: db.entity.type
         type: string
-        requirement_level: required
+        requirement_level:
+          conditionally_required: If applicable.
         brief: >
           This attribute is used to describe the type of the current object.
         examples: ["DATABASE", "INSTANCE"]
