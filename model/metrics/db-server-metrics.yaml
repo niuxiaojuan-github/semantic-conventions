@@ -1,7 +1,251 @@
 groups:
+  - id: attributes.db.cache
+    type: attribute_group
+    brief: Describes db cache attributes
+    attributes:
+      - id: type
+        type: string
+        brief: "The type of cache."
+        examples: ["Default", "Keep"]
+
+  - id: attributes.db.disk
+    type: attribute_group
+    brief: Describes db disk attributes
+    attributes:
+      - id: path
+        type: string
+        brief: "The disk path."
+        examples: ["/root/dameng/data/"]
+  
+  - id: attributes.db.tablespace
+    type: attribute_group
+    brief: Describes db tablespace attributes
+    attributes:
+      - id: tablespace_name
+        type: string
+        requirement_level: required
+        brief: "The identifier of the tablespace."
+        examples: ["User"]
+
+  - id: attributes.db.lock
+    type: attribute_group
+    brief: Describes db lock attributes
+    attributes:
+      - ref: type
+        brief: "The type of lock."
+        examples: ["Transaction", "Object"]
+  
+  - id: attributes.db.sql
+    type: attribute_group
+    brief: Describes db sql attributes
+    attributes:
+      - id: sql_id
+        type: string
+        requirement_level: required
+        brief: "The sql statement id."
+        examples: ["128364"]
+      - id: sql_text
+        type: string
+        brief: "The text of sql statement."
+        examples: ["select 1 from dual"]
+  
+  - id: attributes.db.lock.time
+    type: attribute_group
+    brief: Describes db lock attributes
+    attributes:
+      - id: lock_id
+        type: string
+        requirement_level: required
+        brief: "The lock ID."
+        examples: ["223"]
+      - id: blocking_sess_id
+        type: string
+        brief: "The blocking session identifier."
+        examples: ["2354"]
+      - id: blocker_sess_id
+        type: string
+        brief: "The blocker session identifier."
+        examples: ["4657"]
+      - id: locked_obj_name
+        type: string
+        brief: "The locked object name."
+        examples: ["table1", "table2"]
+
   - id: metric.db.status
     type: metric
     metric_name: db.status
     brief: "The status of the database. 1 (Active), 0 (Inactive)"
     instrument: gauge
     unit: "{status}"
+  - id: metric.db.instance.count
+    type: metric
+    metric_name: db.instance.count
+    brief: "The total number of instances of database."
+    instrument: updowncounter
+    unit: "{instance}"
+  - id: metric.db.instance.active.count
+    type: metric
+    metric_name: db.instance.active.count
+    brief: "The total number of active instances of database."
+    instrument: updowncounter
+    unit: "{instance}"
+  - id: metric.db.session.count
+    type: metric
+    metric_name: db.session.count
+    brief: "The number of database sessions."
+    instrument: updowncounter
+    unit: "{session}"
+  - id: metric.db.session.active.count
+    type: metric
+    metric_name: db.session.active.count
+    brief: "The number of active database sessions."
+    instrument: updowncounter
+    unit: "{session}"
+  - id: metric.db.transaction.count
+    type: metric
+    metric_name: db.transaction.count
+    brief: "The number of transactions per second."
+    instrument: gauge
+    unit: "{transaction}"
+  - id: metric.db.transaction.rate
+    type: metric
+    metric_name: db.transaction.rate
+    brief: "The number of transactions per second."
+    instrument: gauge
+    unit: "{transaction}"
+  - id: metric.db.transaction.latency
+    type: metric
+    metric_name: db.transaction.latency 
+    brief: "The average transaction latency."
+    instrument: gauge
+    unit: "s"
+  - id: metric.db.sql.count
+    type: metric
+    metric_name: db.sql.count 
+    brief: "The number of SQLs"
+    instrument: updowncounter 
+    unit: "{sql}"
+  - id: metric.db.sql.rate
+    type: metric
+    metric_name: db.sql.rate 
+    brief: "The number of SQL per second."
+    instrument: gauge 
+    unit: "{sql}"
+  - id: metric.db.sql.latency
+    type: metric
+    metric_name: db.sql.latency
+    brief: "The average SQL latency."
+    instrument: gauge
+    unit: "s"
+  - id: metric.db.io.read.rate
+    type: metric
+    metric_name: db.io.read.rate
+    brief: "The physical read per second."
+    instrument: gauge
+    unit: "By"
+  - id: metric.db.io.write.rate
+    type: metric
+    metric_name: db.io.write.rate
+    brief: "The physical write per second."
+    instrument: gauge
+    unit: "By"
+  - id: metric.db.task.wait_count
+    type: metric
+    metric_name: db.task.wait_count
+    brief: "Number of waiting tasks."
+    instrument: updowncounter
+    unit: "{task}"
+  - id: metric.db.task.avg_wait_time
+    type: metric
+    metric_name: db.task.avg_wait_time
+    brief: "Average task wait time."
+    instrument: gauge 
+    unit: "s"
+  - id: metric.db.cache.hit
+    type: metric
+    metric_name: db.cache.hit
+    brief: "The cache hit ratio/percentage"
+    instrument: gauge
+    unit: "1"
+    extends: attributes.db.cache
+  - id: metric.db.sql.elapsed_time
+    type: metric
+    metric_name: db.sql.elapsed_time
+    brief: "The elapsed time in second of the query"
+    instrument: updowncounter
+    unit: "s"
+    extends: attributes.db.sql
+  - id: metric.db.lock.count
+    type: metric
+    metric_name: db.lock.count
+    brief: "The number of database locks."
+    instrument: updowncounter
+    unit: "{lock}"
+    extends: attributes.db.lock
+  - id: metric.db.lock.time
+    type: metric
+    metric_name: db.lock.time
+    brief: "The lock elapsed time"
+    instrument: updowncounter
+    unit: "s"
+    extends: attributes.db.lock.time 
+  - id: metric.db.disk.usage
+    type: metric
+    metric_name: db.disk.usage
+    brief: "The size (in bytes) of the used disk space."
+    instrument: updowncounter
+    unit: "By"
+    extends: attributes.db.disk
+  - id: metric.db.disk.utilization
+    type: metric
+    metric_name: db.disk.utilization
+    brief: "The percentage of used disk space"
+    instrument: gauge
+    unit: "1"
+    extends: attributes.db.disk
+  - id: metric.db.cpu.utilization
+    type: metric
+    metric_name: db.cpu.utilization
+    brief: "The percentage of used CPU."
+    instrument: gauge
+    unit: "1"
+  - id: metric.db.mem.utilization
+    type: metric
+    metric_name: db.mem.utilization
+    brief: "The percentage of used memory"
+    instrument: gauge
+    unit: "1"
+  - id: metric.db.tablespace.size
+    type: metric
+    metric_name: db.tablespace.size
+    brief: "The size (in bytes) of the tablespace."
+    instrument: updowncounter
+    unit: "By"
+    extends: attributes.db.tablespace
+  - id: metric.db.tablespace.used
+    type: metric
+    metric_name: db.tablespace.used
+    brief: "The used size (in bytes) of the tablespace."
+    instrument: updowncounter
+    unit: "By"
+    extends: attributes.db.tablespace
+  - id: metric.db.tablespace.utilization
+    type: metric
+    metric_name: db.tablespace.utilization
+    brief: "The used percentage of the tablespace."
+    instrument: gauge
+    unit: "1"
+    extends: attributes.db.tablespace
+  - id: metric.db.tablespace.max
+    type: metric
+    metric_name: db.tablespace.max
+    brief: "The max size (in bytes) of the tablespace."
+    instrument: updowncounter
+    unit: "By"
+    extends: attributes.db.tablespace
+  - id: metric.db.backup.cycle
+    type: metric
+    metric_name: db.backup.cycle
+    brief: "Backup cycle."
+    instrument: gauge
+    unit: "s"

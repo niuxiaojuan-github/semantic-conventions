@@ -53,10 +53,37 @@ All metrics in `db.instance` instruments should be attached to a [Instance resou
 
   * [Availability](#availability)
     + [Metric: `db.status`](#metric-dbstatus)
+    + [Metric: `db.instance.count`](#metric-dbinstancecount)
+    + [Metric: `db.instance.active.count`](#metric-dbinstanceactivecount)
   * [Throughput](#throughput)
+    + [Metric: `db.session.count`](#metric-dbsessioncount)
+    + [Metric: `db.session.active.count`](#metric-dbsessionactivecount)
+    + [Metric: `db.transaction.count`](#metric-dbtransactioncount)
+    + [Metric: `db.transaction.rate`](#metric-dbtransactionrate)
+    + [Metric: `db.transaction.latency`](#metric-dbtransactionlatency)
+    + [Metric: `db.sql.count`](#metric-dbsqlcount)
+    + [Metric: `db.sql.rate`](#metric-dbsqlrate)
+    + [Metric: `db.sql.latency`](#metric-dbsqllatency)
+    + [Metric: `db.io.read.rate`](#metric-dbioreadrate)
+    + [Metric: `db.io.write.rate`](#metric-dbiowriterate)
+    + [Metric: `db.task.wait_count`](#metric-dbtaskwait_count)
+    + [Metric: `db.task.avg_wait_time`](#metric-dbtaskavg_wait_time)
   * [Performance](#performance)
+    + [Metric: `db.cache.hit`](#metric-dbcachehit)
+    + [Metric: `db.sql.elapsed_time`](#metric-dbsqlelapsed_time)
+    + [Metric: `db.lock.count`](#metric-dblockcount)
+    + [Metric: `db.lock.time`](#metric-dblocktime)
   * [Resource Usage](#resource-usage)
+    + [Metric: `db.disk.usage`](#metric-dbdiskusage)
+    + [Metric: `db.disk.utilization`](#metric-dbdiskutilization)
+    + [Metric: `db.cpu.utilization`](#metric-dbcpuutilization)
+    + [Metric: `db.mem.utilization`](#metric-dbmemutilization)
+    + [Metric: `db.tablespace.size`](#metric-dbtablespacesize)
+    + [Metric: `db.tablespace.used`](#metric-dbtablespaceused)
+    + [Metric: `db.tablespace.utilization`](#metric-dbtablespaceutilization)
+    + [Metric: `db.tablespace.max`](#metric-dbtablespacemax)
   * [Maintenance](#maintenance)
+    + [Metric: `db.backup.cycle`](#metric-dbbackupcycle)
 
 <!-- tocstop -->
 
@@ -72,13 +99,347 @@ This metric is [required][MetricRequired].
 | `db.status` | Gauge | `{status}` | The status of the database. 1 (Active), 0 (Inactive) |
 <!-- endsemconv -->
 
+### Metric: `db.instance.count`
+
+This metric is [recommended][MetricRecommended].
+
+<!-- semconv metric.db.instance.count(metric_table) -->
+| Name     | Instrument Type | Unit (UCUM) | Description    |
+| -------- | --------------- | ----------- | -------------- |
+| `db.instance.count` | UpDownCounter | `{instance}` | The total number of instances of database. |
+<!-- endsemconv -->
+
+### Metric: `db.instance.active.count`
+
+This metric is [recommended][MetricRecommended].
+
+<!-- semconv metric.db.instance.active.count(metric_table) -->
+| Name     | Instrument Type | Unit (UCUM) | Description    |
+| -------- | --------------- | ----------- | -------------- |
+| `db.instance.active.count` | UpDownCounter | `{instance}` | The total number of active instances of database. |
+<!-- endsemconv -->
+
 ## Throughput
+
+### Metric: `db.session.count`
+
+This metric is [recommended][MetricRecommended].
+
+<!-- semconv metric.db.session.count(metric_table) -->
+| Name     | Instrument Type | Unit (UCUM) | Description    |
+| -------- | --------------- | ----------- | -------------- |
+| `db.session.count` | UpDownCounter | `{session}` | The number of database sessions. |
+<!-- endsemconv -->
+
+### Metric: `db.session.active.count`
+
+This metric is [recommended][MetricRecommended].
+
+<!-- semconv metric.db.session.active.count(metric_table) -->
+| Name     | Instrument Type | Unit (UCUM) | Description    |
+| -------- | --------------- | ----------- | -------------- |
+| `db.session.active.count` | UpDownCounter | `{session}` | The number of active database sessions. |
+<!-- endsemconv -->
+
+### Metric: `db.transaction.count`
+
+This metric is [recommended][MetricRecommended].
+
+<!-- semconv metric.db.transaction.count(metric_table) -->
+| Name     | Instrument Type | Unit (UCUM) | Description    |
+| -------- | --------------- | ----------- | -------------- |
+| `db.transaction.count` | Gauge | `{transaction}` | The number of transactions per second. |
+<!-- endsemconv -->
+
+### Metric: `db.transaction.rate`
+
+This metric is [recommended][MetricRecommended].
+
+<!-- semconv metric.db.transaction.rate(metric_table) -->
+| Name     | Instrument Type | Unit (UCUM) | Description    |
+| -------- | --------------- | ----------- | -------------- |
+| `db.transaction.rate` | Gauge | `{transaction}` | The number of transactions per second. |
+<!-- endsemconv -->
+
+### Metric: `db.transaction.latency`
+
+This metric is [recommended][MetricRecommended].
+
+<!-- semconv metric.db.transaction.latency(metric_table) -->
+| Name     | Instrument Type | Unit (UCUM) | Description    |
+| -------- | --------------- | ----------- | -------------- |
+| `db.transaction.latency` | Gauge | `s` | The average transaction latency. |
+<!-- endsemconv -->
+
+### Metric: `db.sql.count`
+
+This metric is [recommended][MetricRecommended].
+
+<!-- semconv metric.db.sql.count(metric_table) -->
+| Name     | Instrument Type | Unit (UCUM) | Description    |
+| -------- | --------------- | ----------- | -------------- |
+| `db.sql.count` | UpDownCounter | `{sql}` | The number of SQLs |
+<!-- endsemconv -->
+
+### Metric: `db.sql.rate`
+
+This metric is [recommended][MetricRecommended].
+
+<!-- semconv metric.db.sql.rate(metric_table) -->
+| Name     | Instrument Type | Unit (UCUM) | Description    |
+| -------- | --------------- | ----------- | -------------- |
+| `db.sql.rate` | Gauge | `{sql}` | The number of SQL per second. |
+<!-- endsemconv -->
+
+### Metric: `db.sql.latency`
+
+This metric is [recommended][MetricRecommended].
+
+<!-- semconv metric.db.sql.latency(metric_table) -->
+| Name     | Instrument Type | Unit (UCUM) | Description    |
+| -------- | --------------- | ----------- | -------------- |
+| `db.sql.latency` | Gauge | `s` | The average SQL latency. |
+<!-- endsemconv -->
+
+### Metric: `db.io.read.rate`
+
+This metric is [recommended][MetricRecommended].
+
+<!-- semconv metric.db.io.read.rate(metric_table) -->
+| Name     | Instrument Type | Unit (UCUM) | Description    |
+| -------- | --------------- | ----------- | -------------- |
+| `db.io.read.rate` | Gauge | `By` | The physical read per second. |
+<!-- endsemconv -->
+
+### Metric: `db.io.write.rate`
+
+This metric is [recommended][MetricRecommended].
+
+<!-- semconv metric.db.io.write.rate(metric_table) -->
+| Name     | Instrument Type | Unit (UCUM) | Description    |
+| -------- | --------------- | ----------- | -------------- |
+| `db.io.write.rate` | Gauge | `By` | The physical write per second. |
+<!-- endsemconv -->
+
+### Metric: `db.task.wait_count`
+
+This metric is [recommended][MetricRecommended].
+
+<!-- semconv metric.db.task.wait_count(metric_table) -->
+| Name     | Instrument Type | Unit (UCUM) | Description    |
+| -------- | --------------- | ----------- | -------------- |
+| `db.task.wait_count` | UpDownCounter | `{task}` | Number of waiting tasks. |
+<!-- endsemconv -->
+
+### Metric: `db.task.avg_wait_time`
+
+This metric is [recommended][MetricRecommended].
+
+<!-- semconv metric.db.task.avg_wait_time(metric_table) -->
+| Name     | Instrument Type | Unit (UCUM) | Description    |
+| -------- | --------------- | ----------- | -------------- |
+| `db.task.avg_wait_time` | Gauge | `s` | Average task wait time. |
+<!-- endsemconv -->
 
 ## Performance
 
+### Metric: `db.cache.hit`
+
+This metric is [recommended][MetricRecommended].
+
+<!-- semconv metric.db.cache.hit(metric_table) -->
+| Name     | Instrument Type | Unit (UCUM) | Description    |
+| -------- | --------------- | ----------- | -------------- |
+| `db.cache.hit` | Gauge | `1` | The cache hit ratio/percentage |
+<!-- endsemconv -->
+
+<!-- semconv metric.db.cache.hit(full) -->
+| Attribute  | Type | Description  | Examples  | Requirement Level |
+|---|---|---|---|---|
+| `type` | string | The type of cache. | `Default`; `Keep` | Recommended |
+<!-- endsemconv -->
+
+### Metric: `db.sql.elapsed_time`
+
+This metric is [recommended][MetricRecommended].
+
+<!-- semconv metric.db.sql.elapsed_time(metric_table) -->
+| Name     | Instrument Type | Unit (UCUM) | Description    |
+| -------- | --------------- | ----------- | -------------- |
+| `db.sql.elapsed_time` | UpDownCounter | `s` | The elapsed time in second of the query |
+<!-- endsemconv -->
+
+<!-- semconv metric.db.sql.elapsed_time(full) -->
+| Attribute  | Type | Description  | Examples  | Requirement Level |
+|---|---|---|---|---|
+| `sql_id` | string | The sql statement id. | `128364` | Required |
+| `sql_text` | string | The text of sql statement. | `select 1 from dual` | Recommended |
+<!-- endsemconv -->
+
+### Metric: `db.lock.count`
+
+This metric is [recommended][MetricRecommended].
+
+<!-- semconv metric.db.lock.count(metric_table) -->
+| Name     | Instrument Type | Unit (UCUM) | Description    |
+| -------- | --------------- | ----------- | -------------- |
+| `db.lock.count` | UpDownCounter | `{lock}` | The number of database locks. |
+<!-- endsemconv -->
+
+<!-- semconv metric.db.lock.count(full) -->
+| Attribute  | Type | Description  | Examples  | Requirement Level |
+|---|---|---|---|---|
+| `type` | string | The type of lock. | `Transaction`; `Object` | Recommended |
+<!-- endsemconv -->
+
+### Metric: `db.lock.time`
+
+This metric is [recommended][MetricRecommended].
+
+<!-- semconv metric.db.lock.time(metric_table) -->
+| Name     | Instrument Type | Unit (UCUM) | Description    |
+| -------- | --------------- | ----------- | -------------- |
+| `db.lock.time` | UpDownCounter | `s` | The lock elapsed time |
+<!-- endsemconv -->
+
+<!-- semconv metric.db.lock.time(full) -->
+| Attribute  | Type | Description  | Examples  | Requirement Level |
+|---|---|---|---|---|
+| `blocker_sess_id` | string | The blocker session identifier. | `4657` | Recommended |
+| `blocking_sess_id` | string | The blocking session identifier. | `2354` | Recommended |
+| `lock_id` | string | The lock ID. | `223` | Required |
+| `locked_obj_name` | string | The locked object name. | `table1`; `table2` | Recommended |
+<!-- endsemconv -->
+
 ## Resource Usage
 
+### Metric: `db.disk.usage`
+
+This metric is [recommended][MetricRecommended].
+
+<!-- semconv metric.db.disk.usage(metric_table) -->
+| Name     | Instrument Type | Unit (UCUM) | Description    |
+| -------- | --------------- | ----------- | -------------- |
+| `db.disk.usage` | UpDownCounter | `By` | The size (in bytes) of the used disk space. |
+<!-- endsemconv -->
+
+<!-- semconv metric.db.disk.usage(full) -->
+| Attribute  | Type | Description  | Examples  | Requirement Level |
+|---|---|---|---|---|
+| `path` | string | The disk path. | `/root/dameng/data/` | Recommended |
+<!-- endsemconv -->
+
+### Metric: `db.disk.utilization`
+
+This metric is [recommended][MetricRecommended].
+
+<!-- semconv metric.db.disk.utilization(metric_table) -->
+| Name     | Instrument Type | Unit (UCUM) | Description    |
+| -------- | --------------- | ----------- | -------------- |
+| `db.disk.utilization` | Gauge | `1` | The percentage of used disk space |
+<!-- endsemconv -->
+
+<!-- semconv metric.db.disk.utilization(full) -->
+| Attribute  | Type | Description  | Examples  | Requirement Level |
+|---|---|---|---|---|
+| `path` | string | The disk path. | `/root/dameng/data/` | Recommended |
+<!-- endsemconv -->
+
+### Metric: `db.cpu.utilization`
+
+This metric is [recommended][MetricRecommended].
+
+<!-- semconv metric.db.cpu.utilization(metric_table) -->
+| Name     | Instrument Type | Unit (UCUM) | Description    |
+| -------- | --------------- | ----------- | -------------- |
+| `db.cpu.utilization` | Gauge | `1` | The percentage of used CPU. |
+<!-- endsemconv -->
+
+### Metric: `db.mem.utilization`
+
+This metric is [recommended][MetricRecommended].
+
+<!-- semconv metric.db.mem.utilization(metric_table) -->
+| Name     | Instrument Type | Unit (UCUM) | Description    |
+| -------- | --------------- | ----------- | -------------- |
+| `db.mem.utilization` | Gauge | `1` | The percentage of used memory |
+<!-- endsemconv -->
+
+### Metric: `db.tablespace.size`
+
+This metric is [recommended][MetricRecommended].
+
+<!-- semconv metric.db.tablespace.size(metric_table) -->
+| Name     | Instrument Type | Unit (UCUM) | Description    |
+| -------- | --------------- | ----------- | -------------- |
+| `db.tablespace.size` | UpDownCounter | `By` | The size (in bytes) of the tablespace. |
+<!-- endsemconv -->
+
+<!-- semconv metric.db.tablespace.size(full) -->
+| Attribute  | Type | Description  | Examples  | Requirement Level |
+|---|---|---|---|---|
+| `tablespace_name` | string | The identifier of the tablespace. | `User` | Required |
+<!-- endsemconv -->
+
+### Metric: `db.tablespace.used`
+
+This metric is [recommended][MetricRecommended].
+
+<!-- semconv metric.db.tablespace.used(metric_table) -->
+| Name     | Instrument Type | Unit (UCUM) | Description    |
+| -------- | --------------- | ----------- | -------------- |
+| `db.tablespace.used` | UpDownCounter | `By` | The used size (in bytes) of the tablespace. |
+<!-- endsemconv -->
+
+<!-- semconv metric.db.tablespace.used(full) -->
+| Attribute  | Type | Description  | Examples  | Requirement Level |
+|---|---|---|---|---|
+| `tablespace_name` | string | The identifier of the tablespace. | `User` | Required |
+<!-- endsemconv -->
+
+### Metric: `db.tablespace.utilization`
+
+This metric is [recommended][MetricRecommended].
+
+<!-- semconv metric.db.tablespace.utilization(metric_table) -->
+| Name     | Instrument Type | Unit (UCUM) | Description    |
+| -------- | --------------- | ----------- | -------------- |
+| `db.tablespace.utilization` | Gauge | `1` | The used percentage of the tablespace. |
+<!-- endsemconv -->
+
+<!-- semconv metric.db.tablespace.utilization(full) -->
+| Attribute  | Type | Description  | Examples  | Requirement Level |
+|---|---|---|---|---|
+| `tablespace_name` | string | The identifier of the tablespace. | `User` | Required |
+<!-- endsemconv -->
+
+### Metric: `db.tablespace.max`
+
+This metric is [recommended][MetricRecommended].
+
+<!-- semconv metric.db.tablespace.max(metric_table) -->
+| Name     | Instrument Type | Unit (UCUM) | Description    |
+| -------- | --------------- | ----------- | -------------- |
+| `db.tablespace.max` | UpDownCounter | `By` | The max size (in bytes) of the tablespace. |
+<!-- endsemconv -->
+
+<!-- semconv metric.db.tablespace.max(full) -->
+| Attribute  | Type | Description  | Examples  | Requirement Level |
+|---|---|---|---|---|
+| `tablespace_name` | string | The identifier of the tablespace. | `User` | Required |
+<!-- endsemconv -->
+
 ## Maintenance
+
+### Metric: `db.backup.cycle`
+
+This metric is [recommended][MetricRecommended].
+
+<!-- semconv metric.db.backup.cycle(metric_table) -->
+| Name     | Instrument Type | Unit (UCUM) | Description    |
+| -------- | --------------- | ----------- | -------------- |
+| `db.backup.cycle` | Gauge | `s` | Backup cycle. |
+<!-- endsemconv -->
 
 # Custom metrics
 
