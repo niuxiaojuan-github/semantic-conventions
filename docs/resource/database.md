@@ -1,8 +1,19 @@
-# Database
+# Database Semantic Conventions
 
-**Status**: [Experimental][DocumentStatus]
+# Intruduction
 
-**type:** `database`
+The Semantic Conventions define a common set of (semantic) attributes which provide meaning to data when collecting, producing and consuming it. The benefit to using Semantic Conventions is in following a common naming scheme that can be standardized across a codebase, libraries, and platforms. This allows easier correlation and consumption of data. For more information, see [OpenTelemetry Semantic Conventions](https://github.com/open-telemetry/semantic-conventions/blob/main/docs/README.md).
+
+OpenTelemetry has defined Semantic Conventions for a couple of areas, database is one of them.  See more information at [Semantic Conventions for Database Calls and Systems](https://github.com/open-telemetry/semantic-conventions/blob/main/docs/database/README.md).
+
+Currently, OpenTelemetry official released [DB Metrics](https://github.com/open-telemetry/semantic-conventions/blob/main/docs/database/database-metrics.md) page only defines metrics specific to SQL and NoSQL clients (connection pools related), there is no semantic conventions defined for database server activities, such as number of sessions, etc. 
+We are working with the community to push forward a more comprehensive Semantic Convention with a common description for all databases starting from RDBMS.  
+
+This page tries to describe a semantic convention for the attributes and metrics of generic database activities, the definition will be used to develop generic database sensor. We are considering to propose this to the community.
+
+# Resource attributes
+
+## Database
 
 **Description**: A Database
 
@@ -30,5 +41,60 @@
 **[5]:** MUST be the same for all instances of horizontally scaled services. If the value was not specified, SDKs MUST fallback to `unknown_service:` concatenated with [`process.executable.name`](process.md#process), e.g. `unknown_service:bash`. If `process.executable.name` is not available, the value MUST be set to `unknown_service`.
 <!-- endsemconv -->
 
+# Common metric instruments
 
-[DocumentStatus]: https://github.com/open-telemetry/opentelemetry-specification/tree/v1.26.0/specification/document-status.md
+All metrics in `db.database` instruments should be attached to a Database resource and therefore inherit its attributes, like `db.database.system`.
+
+All metrics in `db.instance` instruments should be attached to a [Instance resource](../database/instance-metrics.md) and therefore inherit its attributes, like `db.instance.name`.
+
+## Availability
+
+### Metric: `db.status`
+
+This metric is [required][MetricRequired].
+
+<!-- semconv metric.db.status(metric_table) -->
+| Name     | Instrument Type | Unit (UCUM) | Description    |
+| -------- | --------------- | ----------- | -------------- |
+| `db.status` | Gauge | `{status}` | The status of the database. 1 (Active), 0 (Inactive) |
+<!-- endsemconv -->
+
+## Throughput
+
+## Performance
+
+## Resource Usage
+
+## Maintenance
+
+# Custom metrics
+
+Please follow the guideline if custom metrics sent, follow this specification to name the custom metrics.
+1. [Instrument Naming](https://github.com/open-telemetry/opentelemetry-specification/blob/v1.22.0/specification/common/attribute-naming.md)
+2. [Attribute Naming](https://github.com/open-telemetry/opentelemetry-specification/blob/v1.22.0/specification/common/attribute-naming.md)
+
+e.g.
+`db.metrics.db_engine.type`,
+`db.metrics.data_compress.ratio`
+
+# Reference
+
+[Metrics Data Model](https://opentelemetry.io/docs/specs/otel/metrics/data-model/)
+
+[OpenTelemetry Semantic Conventions](https://github.com/open-telemetry/semantic-conventions/tree/main/docs)
+
+[Resource Semantic Conventions](https://github.com/open-telemetry/semantic-conventions/blob/main/docs/resource/README.md)
+
+[Trace Semantic Conventions](https://github.com/open-telemetry/semantic-conventions/blob/main/docs/general/trace.md)
+
+[Metrics Semantic Conventions](https://github.com/open-telemetry/semantic-conventions/blob/main/docs/general/metrics.md)
+
+[General Guidelines](https://github.com/open-telemetry/semantic-conventions/blob/main/docs/general/metrics.md#general-guidelines)
+
+[Attribute Requirement Levels for Semantic Conventions](https://github.com/open-telemetry/opentelemetry-specification/blob/v1.22.0/specification/common/attribute-requirement-level.md)
+
+[Metric Requirement Levels for Semantic Conventions](https://github.com/open-telemetry/opentelemetry-specification/blob/v1.22.0/specification/metrics/metric-requirement-level.md)
+
+
+[MetricRequired]: https://github.com/open-telemetry/opentelemetry-specification/tree/v1.26.0/specification/metrics/metric-requirement-level.md#required
+[MetricRecommended]: https://github.com/open-telemetry/opentelemetry-specification/tree/v1.26.0/specification/metrics/metric-requirement-level.md#recommended
