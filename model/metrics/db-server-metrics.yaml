@@ -1,0 +1,7 @@
+groups:
+  - id: metric.db.status
+    type: metric
+    metric_name: db.status
+    brief: "The status of the database. 1 (Active), 0 (Inactive)"
+    instrument: gauge
+    unit: "{status}"

@@ -47,6 +47,19 @@ All metrics in `db.database` instruments should be attached to a Database resour
 
 All metrics in `db.instance` instruments should be attached to a [Instance resource](../database/instance-metrics.md) and therefore inherit its attributes, like `db.instance.name`.
 
+<!-- Re-generate TOC with `markdown-toc --no-first-h1 -i` -->
+
+<!-- toc -->
+
+  * [Availability](#availability)
+    + [Metric: `db.status`](#metric-dbstatus)
+  * [Throughput](#throughput)
+  * [Performance](#performance)
+  * [Resource Usage](#resource-usage)
+  * [Maintenance](#maintenance)
+
+<!-- tocstop -->
+
 ## Availability
 
 ### Metric: `db.status`
